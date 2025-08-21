@@ -10,7 +10,8 @@ Marco Souza de Joode, summer 2025
 */
 
 #include "galib3d.h"
-
+#include <assert.h>
+#include <math.h>
 
 Multivector add(Multivector u, Multivector v) {
     Multivector w;
@@ -226,12 +227,29 @@ int pure_blade_grade(Multivector M) {
 }
 
 
-
 Multivector bivector_normalize(Multivector B) {
-
-
+    Multivector bnorm;
+    assert(is_bivec(B));
+    double norm = sqrt(B.c1 * B.c1 + B.c2 * B.c2 + B.c3 * B.c3);
+    bnorm.a = 0;
+    bnorm.b1 = 0;
+    bnorm.b2 = 0;
+    bnorm.b3 = 0;
+    bnorm.c1 = B.c1 / norm;
+    bnorm.c2 = B.c2 / norm;
+    bnorm.c3 = B.c3 / norm;
+    bnorm.d = 0;
+    return bnorm;
 }
 
-Multivector mv_exp(Multivector u) {
+Multivector rotor(Multivector B, double theta) {
+    Multivector rot, biv, w;
+    Multivector w = {0, 0, 0, 0, 0, 0, 0, 0};
+    biv = bivector_normalize(B);
+    w.a = sin(theta / 2);
 
+    rot = gp(w, biv);
+    rot.a = cos(theta/2.0);
+    return rot;
 }
+
