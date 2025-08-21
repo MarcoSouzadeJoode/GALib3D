@@ -137,14 +137,6 @@ Multivector gp(Multivector u, Multivector v) {
     return w;
 }
 
-Multivector reverse(Multivector M) {
-    Multivector rev;
-    rev = M;
-    rev.c1 = -M.c1;
-    rev.c2 = 
-    
-
-}
 
 int is_scalar(Multivector M) {
     double eps = 1e-12;
@@ -242,8 +234,21 @@ Multivector bivector_normalize(Multivector B) {
     return bnorm;
 }
 
+Multivector reverse(Multivector M) {
+    Multivector rev;
+    rev.a = M.a;
+    rev.b1 = M.b1;
+    rev.b2 = M.b2;
+    rev.b3 = M.b3;
+    rev.c1 = -M.c1;
+    rev.c2 = -M.c2;
+    rev.c3 = -M.c3;
+    rev.d = -M.d;
+    return rev;
+}
+
 Multivector rotor(Multivector B, double theta) {
-    Multivector rot, biv, w;
+    Multivector rot, biv;
     Multivector w = {0, 0, 0, 0, 0, 0, 0, 0};
     biv = bivector_normalize(B);
     w.a = sin(theta / 2);
@@ -251,5 +256,13 @@ Multivector rotor(Multivector B, double theta) {
     rot = gp(w, biv);
     rot.a = cos(theta/2.0);
     return rot;
+}
+
+Multivector rotate_vector(Multivector v, Multivector B, double theta) {
+    Multivector R, Rrev, vprime;
+    R = rotor(B, theta);
+    Rrev = reverse(R);
+    vprime = gp(gp(Rrev, v), R);
+    return vprime;
 }
 

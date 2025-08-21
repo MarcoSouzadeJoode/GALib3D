@@ -35,4 +35,21 @@ Multivector dotpluswedge(Vec3 u, Vec3 v);
 Multivector wedge(Multivector u, Multivector v);
 Multivector gp(Multivector u, Multivector v);
 
+
+Multivector reverse(Multivector M);
+Multivector bivector_normalize(Multivector B);
+
+
+
+Multivector rotor(Multivector B, double theta);
+Multivector rotate_vector(Multivector v, Multivector B, double theta);
+
+
+int is_scalar(Multivector M);
+int is_vec(Multivector M);
+int is_bivec(Multivector M);
+int is_trivec(Multivector M);
+int pure_blade_grade(Multivector M);
+
+
 #endif
