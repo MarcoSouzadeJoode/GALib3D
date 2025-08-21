@@ -135,3 +135,103 @@ Multivector gp(Multivector u, Multivector v) {
 
     return w;
 }
+
+Multivector reverse(Multivector M) {
+    Multivector rev;
+    rev = M;
+    rev.c1 = -M.c1;
+    rev.c2 = 
+    
+
+}
+
+int is_scalar(Multivector M) {
+    double eps = 1e-12;
+    if (
+        (fabs(M.b1) < eps) &&
+        (fabs(M.b2) < eps) &&
+        (fabs(M.b3) < eps) &&
+        (fabs(M.c1) < eps) &&
+        (fabs(M.c2) < eps) &&
+        (fabs(M.c3) < eps) &&
+        (fabs(M.d) < eps)) {
+            return 1;
+    } else {
+        return 0;
+    }
+}
+
+int is_vec(Multivector M) {
+    double eps = 1e-12;
+    if ((fabs(M.a) < eps) &&
+        (fabs(M.c1) < eps) &&
+        (fabs(M.c2) < eps) &&
+        (fabs(M.c3) < eps) &&
+        (fabs(M.d) < eps)) {
+            return 1;
+    } else {
+        return 0;
+    }
+}
+
+int is_bivec(Multivector M) {
+    double eps = 1e-12;
+    if ((fabs(M.a) < eps) &&
+        (fabs(M.b1) < eps) &&
+        (fabs(M.b2) < eps) &&
+        (fabs(M.b3) < eps) &&
+        (fabs(M.d) < eps)) {
+            return 1;
+    } else {
+        return 0;
+    }
+}
+
+int is_trivec(Multivector M) {
+    double eps = 1e-12;
+    if (
+        (fabs(M.a) < eps) &&
+        (fabs(M.b1) < eps) &&
+        (fabs(M.b2) < eps) &&
+        (fabs(M.b3) < eps) &&
+        (fabs(M.c1) < eps) &&
+        (fabs(M.c2) < eps) &&
+        (fabs(M.c3) < eps)) {
+            return 1;
+    } else {
+        return 0;
+    }
+}
+
+int pure_blade_grade(Multivector M) {
+    // returns grade of blade if M is a blade (pure scalar, vector, bivector or trivector)
+    // else, returns -1
+    // if M = 0; treated as scalar
+    if (is_scalar(M)) {
+        return 0;
+    }
+    else if (is_vec(M)) {
+        return 1;
+    }
+    else if (is_bivec(M)) {
+        return 2;
+    }
+    else if (is_trivec(M)) {
+        return 3;
+    }
+    else {
+        return -1;
+    };
+
+}
+
+
+
+Multivector bivector_normalize(Multivector B) {
+
+
+}
+
+Multivector mv_exp(Multivector u) {
+
+}
